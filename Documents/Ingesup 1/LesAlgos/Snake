@@ -1,0 +1,95 @@
+Snake :
+
+entier vide = 0;
+entier mur = 1;
+entier fruit = 2;
+entier tete = 3;
+entier queue = 4;
+entier bout = 5;
+entier direction;
+
+
+
+// initialisation du terrain de jeu
+
+entier l = 20; 
+entier c = 30;
+entier Tab[l][c];
+entier lpos = 10
+entier cpos = 15
+
+Tab[lpos][cpos] = tete;
+Tab[lpos+1][cpos] = bout;
+
+POUR(entier l1 = 0; l1 < l; l++)
+{
+Tab[l1][0] = mur;
+Tab[l1][c] = mur;
+}
+
+POUR(entier c1 = 0; c1 < c; c++)
+{
+Tab[0][c1] = mur;
+Tab[l][c1] = mur;
+}
+
+Tab[RAND()][RAND()] = fruit;
+
+
+
+// Création de la fonction pour diriger le Snake
+
+FONCTION DIRECTION (mouvement)
+{	
+entier mouvement = 0;
+entier haut = 1;
+entier bas = 2;
+entier gauche = 3;
+entier droite = 4;
+
+	Si(mouvement == haut)
+	{
+	lpos --;	
+	}
+	
+	Sinon Si(mouvement == bas)
+	{
+	lpos ++;	
+	}
+	
+	Sinon Si(mouvement == gauche)
+	{
+	cpos --;	
+	}
+	
+	Sinon Si(mouvement == droite)
+	{
+	cpos ++;	
+	}
+}	
+
+
+
+// Gameplay
+
+TANT QUE (tete != queue || tete != mur)
+{
+direction = LIRE();
+	
+	Si (tete != fruit)
+	{	
+	Tab[lpos][cpos] = queue; 
+	DIRECTION(direction);
+	Tab[lpos][cpos] = tete;
+	
+	}
+	
+	Sinon Si (tete == fruit)
+	{	
+	Tab[lpos][cpos] = queue;
+	DIRECTION(direction);
+	Tab[lpos][cpos] = tete;
+	}
+
+}	
+
